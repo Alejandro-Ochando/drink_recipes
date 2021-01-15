@@ -3,7 +3,7 @@ import ModalProvider, { ModalContext } from '../context/ModalContext';
 
 const Recipe = ({recipe}) => {
    
-   const { saveIdRecipe } = useContext(ModalProvider);
+   const { saveIdRecipe } = useContext(ModalContext);
 
     return ( 
         <div className="col-md-4 mb-3">
