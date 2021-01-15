@@ -22,7 +22,7 @@ function rand() {
   const useStyles = makeStyles((theme) => ({
     paper: {
       position: 'absolute',
-      width: 400,
+      width: 450,
       backgroundColor: theme.palette.background.paper,
       border: '2px solid #000',
       boxShadow: theme.shadows[5],
@@ -47,8 +47,22 @@ const Recipe = ({recipe}) => {
     }
 
 
+    //Extraer valores del context
+   const { recipeinfo, saveIdRecipe, saveRecipe } = useContext(ModalContext);
+    
+   //Muestra y da formato a los ingredientes
+    const showIngredients = recipeinfo => {
+        let ingredients = [];
+        for(let i=1; i < 16; i++){
+            if(recipeinfo[`strIngredient${i}`]){
+               ingredients.push (
+                   <li>{recipeinfo[`strIngredient${i}`]}  {recipeinfo[`strMeasure${i}`]}</li>
+               )
+            }
+        }
 
-   const { saveIdRecipe } = useContext(ModalContext);
+        return ingredients;
+    }
 
     return ( 
         <div className="col-md-4 mb-3">
@@ -71,11 +85,21 @@ const Recipe = ({recipe}) => {
                         open={open}
                         onClose={() => {
                             saveIdRecipe(null);
+                            saveRecipe({});
                             handleClose();
                         }}
                     >
                         <div style={modalStyle} className={classes.paper}>
-                            <h1>Desde modal</h1>
+                            <h2>{recipeinfo.strDrink}</h2>
+                            <h3 className="mt-4">Instrucciones</h3>
+                            <p>
+                               {recipeinfo.strInstructions} 
+                            </p>
+                            <img className="img-fluid my-4" src={recipeinfo.strDrinkThumb}/>
+                            <h3>Ingredientes</h3>
+                            <ul>
+                                {showIngredients(recipeinfo)}
+                            </ul>
                         </div>
                     </Modal>
                 </div>
