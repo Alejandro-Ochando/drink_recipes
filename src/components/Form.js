@@ -10,7 +10,7 @@ const Form = () => {
     });
 
     const { categories } = useContext(CategoriesContext);
-    const { searchRecipes } = useContext(RecipesContext);
+    const { searchRecipes, saveRequest } = useContext(RecipesContext);
     
     //Funcion para leer el contenido
     const getDataRecipe = e => {
@@ -26,6 +26,7 @@ const Form = () => {
             onSubmit={ e => {
                 e.preventDefault();
                 searchRecipes(search);
+                saveRequest(true);
             }}
         >
             <fieldset className="text-center">
